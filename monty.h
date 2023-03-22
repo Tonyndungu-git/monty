@@ -1,5 +1,5 @@
-#ifndef _MAIN_H_
-#define _MAIN_H_
+#ifndef _MONTY_H_
+#define _MONTY_H_
 #define _GNU_SOURCE
 
 #include <stdbool.h>
@@ -41,7 +41,6 @@ bool is_integer(const char *str);
 void interpret(char *filename);
 void pint(stack_t **stack, unsigned int line_number);
 void pop(stack_t **stack, unsigned int line_number);
-
 
 
 #endif
