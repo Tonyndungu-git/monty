@@ -1,43 +1,33 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "main.h"
+#include "monty.h"
 
 /**
  * push - Pushes an element to the stack.
- * @stack: Double pointer to the head of the stack.
- * @line_number: Line number of the instruction.
+ * @head: Double pointer to the head of the stack.
+ * @line_num: Line number of the instruction.
  */
-void push(stack_t **stack, unsigned int line_number)
+
+void push(stack_t **head, unsigned int line_num)
 {
-	stack_t *new_node = malloc(sizeof(stack_t));
-	char *n = strtok(NULL, " \n");
+	char *endptr;
+	long int number;
 
-	if (n == NULL || !is_integer(n))
+	if (!vars.stack)
 	{
-		fprintf(stderr, "L%u: usage: push integer\n", line_number);
+		dprintf(STDERR_FILENO, "L%u: usage: push integer\n", line_num);
+		free_vars();
 		exit(EXIT_FAILURE);
 	}
 
-	new_node = malloc(sizeof(stack_t));
-	if (new_node == NULL)
+	number = strtol(vars.stack, &endptr, 10);
+	if (*endptr != '\0')
 	{
-		fprintf(stderr, "Error: malloc failed\n");
+		dprintf(STDERR_FILENO, "L%u: usage: push integer\n", line_num);
+		free_vars();
 		exit(EXIT_FAILURE);
 	}
 
-	new_node->n = atoi(n);
-	new_node->prev = NULL;
-
-	if (*stack == NULL)
-	{
-		new_node->next = NULL;
-	}
+	if (vars.order == 1)
+		add_dnodeint(head, (int) number);
 	else
-	{
-		new_node->next = *stack;
-		(*stack)->prev = new_node;
-	}
-
-	*stack = new_node;
+		add_dnodeint_end(head, (int) number);
 }

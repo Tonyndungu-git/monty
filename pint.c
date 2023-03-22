@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "main.h"
+#include "monty.h"
 #include <stdlib.h>
 /**
  * pint - prints the value at the top of the stack

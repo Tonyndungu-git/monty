@@ -1,0 +1,32 @@
+#include "monty.h"
+
+/**
+ * free_vars - frees all variables into the struct global_t
+ * Return: Doesn't return
+ */
+void free_vars(void)
+{
+	free_stack(vars.head);
+	free(vars.buffer);
+	fclose(vars.fd);
+}
+
+
+/**
+ * free_stack - free a doubly linked list
+ * @head: Pointer to the first node of doubly linked list
+ */
+void free_stack(stack_t *head)
+{
+	stack_t *next;
+
+	if (head == NULL)
+		return;
+	while (head->next != NULL)
+	{
+		next = head->next;
+		free(head);
+		head = next;
+	}
+	free(head);
+}

@@ -3,6 +3,13 @@
 #define _GNU_SOURCE
 
 #include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 #include <ctype.h>
 
 /**
@@ -35,12 +42,42 @@ typedef struct instruction_s
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
+/**
+ * struct global_variables - all global variables to initialize
+ * @order: Stablish the order of the stack, when is a queue or stack
+ * @fd: File wil be open
+ * @cline: Counter of lines into file
+ * @buffer: this pointer allocate the data of each line of the file
+ * @stack: Reference to the stack will be added
+ * @head: Reference the head of doubly linked list
+ * Description: keeps all variables expecting for a value
+ */
+typedef struct global_variables
+{
+	int order;
+	FILE *fd;
+	unsigned int cline;
+	char *buffer;
+	char *stack;
+	stack_t *head;
+} global_t;
+
+extern global_t vars;
+
+
+stack_t *add_dnodeint(stack_t **head, const int n);
+stack_t *add_dnodeint_end(stack_t **head, const int n);
+void free_vars(void);
+void free_stack(stack_t *head);
+void (*get_opcode_func(char *s))(stack_t **head, unsigned int line_num);
 void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
 bool is_integer(const char *str);
 void interpret(char *filename);
 void pint(stack_t **stack, unsigned int line_number);
 void pop(stack_t **stack, unsigned int line_number);
+void init(FILE *fd);
+FILE *check_open(int argc, char **argv);
 
 
 #endif
