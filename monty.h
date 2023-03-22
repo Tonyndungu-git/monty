@@ -80,6 +80,7 @@ void init(FILE *fd);
 FILE *check_open(int argc, char **argv);
 void swap(stack_t **stack, unsigned int line_number);
 void add(stack_t **stack, unsigned int line_number);
+void nop(stack_t **stack, unsigned int line_number);
 
 
 #endif
