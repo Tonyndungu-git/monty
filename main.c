@@ -1,6 +1,5 @@
 #include "monty.h"
 
-global_t vars;
 /**
  * init - initialize all variables into the struct global_t
  * and keep values while the program finish
