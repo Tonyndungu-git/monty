@@ -1,0 +1,29 @@
+#include "monty.h"
+
+/**
+ * rotl - rotates the stack to the top
+ * @stack: double pointer to the beginning of the stack
+ * @line_number: line number of the opcode being executed
+ */
+void rotl(stack_t **stack)
+{
+
+	stack_t *current, *temp;
+
+	if (*stack == NULL || (*stack)->next == NULL)
+		return;
+
+	current = *stack;
+
+	while (current->next != NULL)
+		current = current->next;
+
+	temp = *stack;
+	(*stack) = (*stack)->next;
+	(*stack)->prev = NULL;
+
+	current->next = temp;
+	temp->prev = current;
+	temp->next = NULL;
+
+}
