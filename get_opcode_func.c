@@ -18,6 +18,7 @@ void (*get_opcode_func(char *s))(stack_t **head, unsigned int line_num)
 		{"sub", sub},
 		{"div", divid},
 		{"mul", mul},
+		{"mod", mod},
 		{NULL, NULL}
 	};
 
